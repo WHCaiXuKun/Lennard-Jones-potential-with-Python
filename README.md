@@ -1,4 +1,4 @@
 # Lennard-Jones-potential-with-Python
 ### Pythonを用いた空気のLennard-Jonesポテンシャルの分析
-空気における分子間ポテンシャルエネルギー
-$f(x)=\frac{P(x)}{Q(x)}$
+空気における分子間ポテンシャルエネルギーU[ev]は次の公式より計算する
+
