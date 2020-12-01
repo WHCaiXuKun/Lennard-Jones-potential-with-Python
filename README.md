@@ -21,12 +21,24 @@ df.index = list(range(1,22))
 ```
 データを読み込んだ後、必要なデータはオングストロームとポテンシャル二つしかないので、σ[Å]、	ε/k[K]、ｋ[J/K]などは削除して、df.loc[5:25, ["Unnamed: 1", "Unnamed: 3"]]でオングストロームとポテンシャルの数値だけを取った。これを新たのdfにした。dfの内容を確認すると、columnsとindexはごちゃごちゃして筋道が通っていないので、df.columns = ["オングストローム", "ポテンシャル"]でcolumnsの名前と数値を対応づけた。で、indexも５からではなく、１からにした。描いた曲線は円滑、平滑線出ないため、
 ```
+import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib import font_manager
 from scipy.interpolate import make_interp_spline
+my_font = font_manager.FontProperties(fname="/System/Library/Fonts/ヒラギノ明朝 ProN.ttc")#fontを得る
+
 x_smooth = np.linspace(x.min(), x.max(), 300)
-y_smooth = make_interp_spline(x, y)(x_smooth)#滑らかな曲線を描く
+y_smooth = make_interp_spline(x, y)(x_smooth)　#滑らかな曲線を描く
+x, y = df["オングストローム"], df["ポテンシャル"]
+plt.figure(figsize=(20, 8), dpi=80)
+plt.title("図１空気のLennard-Jonesポテンシャル", fontproperties=my_font, size=20)
+plt.xlabel("オングストローム", fontproperties=my_font, size=20)
+plt.ylabel("ポテンシャル", fontproperties=my_font, size=20)
+plt.plot(x_smooth, y_smooth, c="red")
+plt.savefig("図１　空気のLennard-Jonesポテンシャル.png")
+plt.show()
 ```
-make_interp_splineで平滑線を描くことができた。
+make_interp_splineにより、x軸をx_smooth、y軸をy_smoothで、平滑線を描くことができた。
 
 [1]:https://github.com/Xiong-yinghao/Lennard-Jones-potential-with-Python/blob/main/%E5%9B%B3%EF%BC%91%E7%A9%BA%E6%B0%97%E3%81%AELennard-Jones%E3%83%9B%E3%82%9A%E3%83%86%E3%83%B3%E3%82%B7%E3%83%A3%E3%83%AB.png?raw=true
 
